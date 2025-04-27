@@ -1,0 +1,173 @@
+:root {
+    --footer-bg: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #b3b3b3;
+    --primary-accent: #e74c3c;
+    --border-color: #333333;
+    --box-spacing: 2rem;
+    --transition: all 0.25s ease;
+}
+
+/* Estructura Base del Footer */
+.footer {
+    background-color: var(--footer-bg);
+    color: var(--text-light);
+    padding: 4rem var(--box-spacing);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    max-width: 1280px;
+    margin: 0 auto 3rem;
+}
+
+/* Cajas de Contenido */
+.footer-box {
+    padding: 1.5rem;
+    transition: var(--transition);
+}
+
+.footer-box:hover {
+    transform: translateY(-5px);
+}
+
+.footer-icon {
+    font-size: 2rem;
+    color: var(--primary-accent);
+    margin-bottom: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(231, 76, 60, 0.1);
+    border-radius: 50%;
+}
+
+.footer-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-accent);
+    transition: var(--transition);
+}
+
+.footer-box:hover .footer-title::after {
+    width: 60px;
+}
+
+/* Listas y Texto */
+.footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.footer-list li::before {
+    content: '•';
+    color: var(--primary-accent);
+    font-weight: bold;
+}
+
+.footer-list strong {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.footer-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.footer-text::before {
+    content: '•';
+    color: var(--primary-accent);
+    font-weight: bold;
+}
+
+.footer-text strong {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Créditos del footer */
+.footer-credits {
+    border-top: 1px solid var(--gray-medium);
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--gray-dark);
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-credits p {
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.footer-credits span {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.footer-social a {
+    font-size: 1.3rem;
+    color: var(--gray-dark);
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .footer-credits {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .footer-social a {
+        font-size: 1.2rem;
+    }
+}

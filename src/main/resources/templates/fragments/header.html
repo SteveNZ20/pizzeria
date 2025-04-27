@@ -1,0 +1,41 @@
+<div th:fragment="header">
+    <header class="header">
+        <section class="header-container">
+            <a href="/" th:href="@{/}" class="logo"><span>D</span>iego´s <span>P</span>izza.</a>
+
+            <nav class="navbar" id="navbar">
+                <a th:href="@{/}" class="nav-link">Inicio</a>
+                <a th:href="@{/#about}" class="nav-link">Nosotros</a>
+                <a th:href="@{/menu}" class="nav-link">Menú</a>
+                <a th:href="@{/orders}" class="nav-link">Pedidos</a>
+                <a th:href="@{/#faq}" class="nav-link">FAQ</a>
+            </nav>
+
+            <div class="icons">
+                <button id="menu-btn" class="fas fa-bars icon-btn menu-btn" aria-label="Menú"></button>
+
+                <a href="/login" th:href="@{/login}" class="fas fa-user icon-btn tooltip" aria-label="Iniciar sesión">
+                    <span class="tooltip-text">Login</span>
+                </a>
+
+                <a href="/register" th:href="@{/register}" class="fas fa-user-circle icon-btn tooltip" aria-label="Registrarse">
+                    <span class="tooltip-text">Register</span>
+                </a>
+
+                <a href="/orders" th:href="@{/orders}" class="fas fa-box icon-btn tooltip" aria-label="Mis pedidos">
+                    <span class="tooltip-text">Pedidos</span>
+                </a>
+
+                <a href="/cart" th:href="@{/cart}" class="fas fa-shopping-cart icon-btn tooltip" aria-label="Carrito">
+                    <span class="cart-count" th:text="'(' + ${cartCount != null ? cartCount : 0} + ')'">(0)</span>
+                    <span class="tooltip-text">Carrito</span>
+                </a>
+            </div>
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="logout-button">Cerrar sesión</button>
+                </form>
+            </div>
+        </section>
+    </header>
+</div>

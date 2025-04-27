@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/login.css"> <!-- Asegúrate de que la ruta al archivo CSS sea correcta -->
+</head>
+<body>
+
+<!-- Contenedor del login -->
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h1>Iniciar Sesión</h1>
+            <p>Accede a tu cuenta para continuar</p>
+        </div>
+
+        <!-- Mensaje de error de credenciales -->
+        <div th:if="${param.error}" class="error-message">
+            <p>Credenciales inválidas. Intenta nuevamente.</p>
+        </div>
+
+        <!-- Mensaje de cuenta inactiva -->
+        <div th:if="${param.inactive}" class="error-message">
+            <p>Cuenta inactiva. Contacte al administrador.</p>
+        </div>
+
+        <!-- Mensaje de éxito -->
+        <div th:if="${success}" class="error-message">
+            <p th:text="${success}"></p>
+        </div>
+
+        <form th:action="@{/login}" method="post" th:object="${user}" class="login-form">
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" id="username" th:field="*{username}" required placeholder="Ingresa tu usuario" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" th:field="*{password}" required placeholder="Ingresa tu contraseña" />
+            </div>
+
+            <button type="submit" class="login-button">Ingresar</button>
+        </form>
+
+        <div class="links-container">
+            <a href="/register">¿No tienes una cuenta? Regístrate</a>
+            <a href="/" class="back-to-home">Volver al inicio</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

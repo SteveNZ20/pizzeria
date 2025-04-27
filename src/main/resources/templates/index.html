@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Diego's Pizza - La mejor pizza artesanal de la ciudad">
+
+  <title>Inicio - Diego's Pizza</title>
+
+  <!-- Preconexión para CDN -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Favicon (deberías añadir el tuyo) -->
+  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+<!-- Header Fragment -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <section class="hero">
+    <h1>Bienvenido a Diego's Pizza</h1>
+    <p>La mejor pizza artesanal de la ciudad</p>
+    <a th:href="@{/menu}" class="btn">Ver Menú</a>
+  </section>
+  <!-- más contenido aquí -->
+</main>
+
+<!-- Footer Fragment -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
+</body>
+</html>

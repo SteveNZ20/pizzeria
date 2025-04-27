@@ -1,0 +1,60 @@
+<div th:fragment="footer">
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-box">
+        <div class="footer-icon">
+          <i class="fas fa-phone"></i>
+        </div>
+        <h3 class="footer-title">Contacto</h3>
+        <ul class="footer-list">
+          <li>San Juan de Miraflores <strong>450-3635</strong></li>
+          <li>Villa María del Triunfo <strong>450-4198</strong></li>
+          <li>Villa el Salvador <strong>494-7300</strong></li>
+          <li>Chorrillos <strong>258-4969</strong></li>
+          <li>Los Olivos <strong>485-3514</strong></li>
+        </ul>
+      </div>
+
+      <div class="footer-box">
+        <div class="footer-icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <h3 class="footer-title">Locales</h3>
+        <ul class="footer-list">
+          <li>SJM <strong>Av. San Juan 845</strong></li>
+          <li>VMT <strong>Av. El Triunfo 399</strong></li>
+          <li>VES <strong>Av. César Vallejo 825</strong></li>
+          <li>Chorrillos <strong>Av. San Martín 800</strong></li>
+          <li>Los Olivos <strong>Av. Antunez de Mayolo 829</strong></li>
+        </ul>
+      </div>
+
+      <div class="footer-box">
+        <div class="footer-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3 class="footer-title">Horario</h3>
+        <p class="footer-text">Lunes a Viernes <strong>24 horas</strong></p>
+        <p class="footer-text">Sábado y Domingo <strong>Cerrado</strong></p>
+
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-credits">
+      <p>
+        &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
+        <span>Steve NZ</span> – Todos los derechos reservados
+      </p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+  </footer>
+</div>
