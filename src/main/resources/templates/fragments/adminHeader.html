@@ -1,0 +1,32 @@
+<div th:fragment="adminHeader">
+    <header class="admin-header">
+        <section class="container">
+            <a th:href="@{/admin}" class="logo">Admin<span>Panel</span></a>
+
+            <nav class="navbar" id="navbar">
+                <a th:href="@{/admin}">Inicio</a>
+                <a th:href="@{/admin/products}">Productos</a>
+                <a th:href="@{/admin/orders}">Pedidos</a>
+                <a th:href="@{/admin/accounts}">Admins</a>
+                <a th:href="@{/admin/users}">Usuarios</a>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+            </div>
+
+            <div class="profile" id="profile-menu" th:if="${#authentication.principal != null}">
+                <p th:text="${#authentication.name}">Nombre del Admin</p>
+                <a th:href="@{/admin/profile}" class="btn">Actualizar perfil</a>
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="btn logout-btn">Salir</button>
+                </form>
+                <div class="flex-btn">
+                    <a th:href="@{/admin/register}" class="btn">Registrar Admin</a>
+                </div>
+            </div>
+
+        </section>
+    </header>
+</div>

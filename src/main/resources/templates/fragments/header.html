@@ -14,13 +14,27 @@
             <div class="icons">
                 <button id="menu-btn" class="fas fa-bars icon-btn menu-btn" aria-label="Menú"></button>
 
-                <a href="/login" th:href="@{/login}" class="fas fa-user icon-btn tooltip" aria-label="Iniciar sesión">
-                    <span class="tooltip-text">Login</span>
-                </a>
+                <!-- Verificar si el usuario está autenticado -->
+                <div th:if="${#authentication.principal != null}">
+                    <!-- Si está autenticado, mostrar el perfil -->
+                    <a th:href="${#authentication.authorities.contains('admin') ? '/admin' : '/user'}"
+                       class="fas fa-user icon-btn tooltip"
+                       aria-label="Ver Perfil">
+                        <span class="tooltip-text" th:text="${#authentication.name}">Ver Perfil</span>
+                    </a>
+                </div>
 
-                <a href="/register" th:href="@{/register}" class="fas fa-user-circle icon-btn tooltip" aria-label="Registrarse">
-                    <span class="tooltip-text">Register</span>
-                </a>
+                <!-- Si no está autenticado, mostrar el enlace de login -->
+                <div th:if="${#authentication.principal == null}">
+                    <a href="/login" th:href="@{/login}" class="fas fa-user icon-btn tooltip" aria-label="Iniciar sesión">
+                        <span class="tooltip-text">Login</span>
+                    </a>
+                </div>
+                <div th:if="${#authentication.principal == null}">
+                    <a href="/register" th:href="@{/register}" class="fas fa-user-circle icon-btn tooltip" aria-label="Registrar">
+                        <span class="tooltip-text">Registrar</span>
+                    </a>
+                </div>
 
                 <a href="/orders" th:href="@{/orders}" class="fas fa-box icon-btn tooltip" aria-label="Mis pedidos">
                     <span class="tooltip-text">Pedidos</span>
@@ -31,7 +45,7 @@
                     <span class="tooltip-text">Carrito</span>
                 </a>
             </div>
-            <div>
+            <div th:if="${#authentication.principal != null}">
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="logout-button">Cerrar sesión</button>
                 </form>

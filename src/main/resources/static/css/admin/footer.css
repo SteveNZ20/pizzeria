@@ -1,0 +1,42 @@
+.admin-footer {
+    background-color: var(--white);
+    border-top: var(--border);
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--light-color);
+    margin-top: 3rem;
+}
+
+.admin-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-footer p {
+    margin: 0;
+}
+
+.admin-footer .social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.admin-footer .social-links a {
+    font-size: 1.8rem;
+    color: var(--light-color);
+    transition: var(--transition);
+}
+
+.admin-footer .social-links a:hover {
+    color: var(--main-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-footer .container {
+        flex-direction: column;
+    }
+}

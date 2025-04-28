@@ -1,13 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/header.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/fontawesome.css}"> <!-- FontAwesome -->
 </head>
 <body>
-<h2>Welcome, Admin!</h2>
-<p>Here you can manage the system.</p>
-<!-- Aquí puedes agregar botones o enlaces para administrar usuarios, etc. -->
+
+<!-- Header -->
+<div th:replace="fragments/adminHeader :: adminHeader"></div>
+
+<!-- Contenido principal -->
+<main class="main-content">
+
+  <section class="dashboard">
+
+    <h1 class="heading">Dashboard</h1>
+
+    <div class="box-container">
+
+      <div class="box">
+        <h3>S/ <span th:text="${totalPendings}">0</span></h3>
+        <p>Total de pendientes</p>
+        <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
+      </div>
+
+      <div class="box">
+        <h3>S/ <span th:text="${totalCompletes}">0</span></h3>
+        <p>Pedidos Completados</p>
+        <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
+      </div>
+
+      <div class="box">
+        <h3 th:text="${numberOfOrders}">0</h3>
+        <p>Pedidos realizados</p>
+        <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
+      </div>
+
+      <div class="box">
+        <h3 th:text="${numberOfProducts}">0</h3>
+        <p>Productos añadidos</p>
+        <a th:href="@{/admin/products}" class="btn">Ver Productos</a>
+      </div>
+
+      <div class="box">
+        <h3 th:text="${numberOfUsers}">0</h3>
+        <p>Usuarios</p>
+        <a th:href="@{/admin/users}" class="btn">Ver Usuarios</a>
+      </div>
+
+      <div class="box">
+        <h3 th:text="${numberOfAdmins}">0</h3>
+        <p>Admins</p>
+        <a th:href="@{/admin/accounts}" class="btn">Ver Admins</a>
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- Footer -->
+<div th:replace="fragments/adminFooter :: adminFooter"></div>
+
+<script th:src="@{/js/admin/script.js}"></script>
+
 </body>
 </html>
