@@ -17,7 +17,7 @@
                 <!-- Verificar si el usuario está autenticado -->
                 <div th:if="${#authentication.principal != null}">
                     <!-- Si está autenticado, mostrar el perfil -->
-                    <a th:href="${#authentication.authorities.contains('admin') ? '/admin' : '/user'}"
+                    <a th:href="${#authentication.authorities.contains('admin') ? '/user' : '/admin'}"
                        class="fas fa-user icon-btn tooltip"
                        aria-label="Ver Perfil">
                         <span class="tooltip-text" th:text="${#authentication.name}">Ver Perfil</span>

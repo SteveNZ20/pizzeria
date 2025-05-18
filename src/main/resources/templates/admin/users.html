@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/header.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/fontawesome.css}"> <!-- FontAwesome -->
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/adminHeader :: adminHeader"></div>
+
+<!-- Contenido principal -->
+<main class="main-content">
+
+    <section class="list-container">
+        <h2>Lista de Usuarios</h2>
+
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Status</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Distrito</th>
+                <th>Dirección</th>
+                <th>Referencia</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}">Username</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.usertype}">Tipo</td>
+                <td th:text="${user.status ? 'Activo' : 'Inactivo'}">Estado</td>
+                <td th:text="${user.nombre}">Nombre</td>
+                <td th:text="${user.apellido}">Apellido</td>
+                <td th:text="${user.dni}">DNI</td>
+                <td th:text="${user.telefono}">Teléfono</td>
+                <td th:text="${user.distrito}">Distrito</td>
+                <td th:text="${user.direccion}">Dirección</td>
+                <td th:text="${user.referencia}">Referencia</td>
+                <td>
+                    <!-- Botón de habilitar -->
+                    <form th:action="@{/admin/enableUser}" method="post">
+                        <input type="hidden" name="userId" th:value="${user.id}" />
+                        <button type="submit">Habilitar</button>
+                    </form>
+
+                    <!-- Botón de deshabilitar -->
+                    <form th:action="@{/admin/disableUser}" method="post">
+                        <input type="hidden" name="userId" th:value="${user.id}" />
+                        <button type="submit">Deshabilitar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<div th:replace="fragments/adminFooter :: adminFooter"></div>
+
+<script th:src="@{/js/admin/script.js}"></script>
+
+</body>
+</html>

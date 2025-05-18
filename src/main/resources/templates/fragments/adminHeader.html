@@ -1,32 +1,72 @@
 <div th:fragment="adminHeader">
     <header class="admin-header">
-        <section class="container">
-            <a th:href="@{/admin}" class="logo">Admin<span>Panel</span></a>
+        <div class="container">
 
-            <nav class="navbar" id="navbar">
-                <a th:href="@{/admin}">Inicio</a>
-                <a th:href="@{/admin/products}">Productos</a>
-                <a th:href="@{/admin/orders}">Pedidos</a>
-                <a th:href="@{/admin/accounts}">Admins</a>
-                <a th:href="@{/admin/users}">Usuarios</a>
+            <!-- Logo -->
+            <a th:href="@{/admin}" class="logo" aria-label="Ir al panel de administración">
+                <i class="fas fa-cogs" aria-hidden="true"></i>
+                <span>Admin<span class="highlight">Panel</span></span>
+            </a>
+
+            <!-- Menú de navegación -->
+            <nav class="navbar" id="navbar" role="navigation" aria-label="Menú principal">
+                <ul class="nav-list">
+                    <li><a th:href="@{/}" aria-label="Inicio"><i class="fas fa-home" aria-hidden="true"></i> <span>Inicio</span></a></li>
+                    <li><a th:href="@{/admin/products}" aria-label="Productos"><i class="fas fa-box" aria-hidden="true"></i> <span>Productos</span></a></li>
+                    <li><a th:href="@{/admin/orders}" aria-label="Pedidos"><i class="fas fa-shopping-cart" aria-hidden="true"></i> <span>Pedidos</span></a></li>
+                    <li><a th:href="@{/admin/accounts}" aria-label="Admins"><i class="fas fa-user-shield" aria-hidden="true"></i> <span>Admins</span></a></li>
+                    <li><a th:href="@{/admin/users}" aria-label="Usuarios"><i class="fas fa-users" aria-hidden="true"></i> <span>Usuarios</span></a></li>
+                </ul>
             </nav>
 
-            <div class="icons">
-                <div id="menu-btn" class="fas fa-bars"></div>
-                <div id="user-btn" class="fas fa-user"></div>
-            </div>
+            <!-- Acciones -->
+            <div class="header-actions" role="group" aria-label="Acciones de usuario">
+                <!-- Botón menú -->
+                <button id="menu-btn" class="icon-btn" aria-label="Abrir menú de navegación" aria-controls="navbar" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
 
-            <div class="profile" id="profile-menu" th:if="${#authentication.principal != null}">
-                <p th:text="${#authentication.name}">Nombre del Admin</p>
-                <a th:href="@{/admin/profile}" class="btn">Actualizar perfil</a>
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" class="btn logout-btn">Salir</button>
+                <!-- Botón perfil -->
+                <button class="icon-btn" onclick="toggleProfile()" aria-label="Abrir menú de perfil" aria-controls="profile-menu" aria-expanded="false">
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                </button>
+
+                <!-- Logout -->
+                <form th:action="@{/logout}" method="post" class="logout-form" title="Cerrar sesión">
+                    <button type="submit" class="logout-btn" aria-label="Cerrar sesión">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="logout-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 002 2h3a2 2 0 002-2V7a2 2 0 00-2-2h-3a2 2 0 00-2 2v1" />
+                        </svg>
+                    </button>
                 </form>
-                <div class="flex-btn">
-                    <a th:href="@{/admin/register}" class="btn">Registrar Admin</a>
-                </div>
             </div>
 
-        </section>
+            <!-- Menú de perfil -->
+            <aside class="profile" id="profile-menu" aria-label="Menú de perfil" th:if="${#authentication.principal != null}">
+                <p th:text="${#authentication.name}">Nombre del Admin</p>
+                <a th:href="@{/admin/profile}" class="btn"><i class="fas fa-user-edit" aria-hidden="true"></i> Actualizar perfil</a>
+                <a th:href="@{/admin/register}" class="btn"><i class="fas fa-user-plus" aria-hidden="true"></i> Registrar Admin</a>
+            </aside>
+
+        </div>
     </header>
 </div>
+
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const navbar = document.getElementById('navbar');
+    const profileMenu = document.getElementById('profile-menu');
+
+    menuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+        const expanded = navbar.classList.contains('active');
+        menuBtn.setAttribute('aria-expanded', expanded);
+    });
+
+    function toggleProfile() {
+        profileMenu.classList.toggle('active');
+        const expanded = profileMenu.classList.contains('active');
+        document.querySelector('[aria-controls="profile-menu"]').setAttribute('aria-expanded', expanded);
+    }
+</script>

@@ -1,13 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/user/perfil.css}">
+  <link rel="stylesheet" th:href="@{/css/user/form.css}"> <title th:text="'Welcome, ' + ${user.username} + '!'"></title>
 </head>
 <body>
-<h2>Welcome, User!</h2>
-<p>Here you can manage the system.</p>
-<!-- Aquí puedes agregar botones o enlaces para administrar usuarios, etc. -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="user-profile-container">
+  <div class="profile-card">
+    <h2 class="profile-title" th:text="'Bienvenido, ' + ${user.nombre} + ' ' + ${user.apellido}">Welcome, User!</h2>
+
+    <div class="profile-info">
+      <div class="info-item">
+        <i class="fas fa-user icon"></i>
+        <span class="label">Username:</span>
+        <span th:text="${user.username}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-envelope icon"></i>
+        <span class="label">Email:</span>
+        <span th:text="${user.email}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-id-card icon"></i>
+        <span class="label">DNI:</span>
+        <span th:text="${user.dni}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-phone icon"></i>
+        <span class="label">Teléfono:</span>
+        <span th:text="${user.telefono}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt icon"></i>
+        <span class="label">Distrito:</span>
+        <span th:text="${user.distrito}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-home icon"></i>
+        <span class="label">Dirección:</span>
+        <span th:text="${user.direccion}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-map-pin icon"></i>
+        <span class="label">Referencia:</span>
+        <span th:text="${user.referencia}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-calendar-plus icon"></i>
+        <span class="label">Fecha de Creación:</span>
+        <span th:text="${#dates.format(user.fechaCreacion, 'yyyy-MM-dd HH:mm:ss')}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-calendar-check icon"></i>
+        <span class="label">Fecha de Actualización:</span>
+        <span th:text="${#dates.format(user.fechaActualizacion, 'yyyy-MM-dd HH:mm:ss')}"></span>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-chart-line icon"></i>
+        <span class="label">Meses:</span>
+        <span th:text="${user.meses}"></span>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <a th:href="@{/user/{username}/edit(username=${user.username})}" class="button">Actualizar Usuario</a>
+    </div>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
+
 </body>
 </html>

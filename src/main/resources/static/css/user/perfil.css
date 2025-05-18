@@ -1,0 +1,88 @@
+/* Estilos generales para la responsividad */
+.user-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height)); /* Ajusta según la altura de tu header y footer */
+    padding: 20px;
+    background-color: #f7f7f7; /* Un fondo suave */
+}
+
+.profile-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 90%;
+    max-width: 600px; /* Ancho máximo para pantallas más grandes */
+}
+
+.profile-title {
+    color: #333;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Diseño de grid responsivo */
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.icon {
+    color: #007bff; /* Color primario */
+    font-size: 1.2em;
+    margin-right: 10px;
+    width: 20px; /* Para alinear los iconos */
+    text-align: center;
+}
+
+.label {
+    font-weight: bold;
+    color: #555;
+    width: 120px; /* Ancho fijo para las etiquetas */
+}
+
+/* Estilos para pantallas más pequeñas (ejemplo) */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .profile-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        gap: 10px;
+    }
+
+    .label {
+        width: 100px; /* Ajustar ancho de etiquetas en pantallas pequeñas */
+    }
+}
+
+/* Variables de color (puedes definirlas en un archivo aparte o en la raíz) */
+:root {
+    --primary-color: #007bff;
+    --text-color: #333;
+    --secondary-text-color: #555;
+    --background-color: #f7f7f7;
+    --card-background-color: #fff;
+    --border-color: #eee;
+}

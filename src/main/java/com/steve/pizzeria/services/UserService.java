@@ -14,6 +14,7 @@ public class UserService {
 
     private final RestTemplate restTemplate;
     private final String API_BASE_URL = "http://localhost:9090/users"; // URL de tu API
+    private final String UPDATE_STATUS_ENDPOINT = API_BASE_URL + "/update-status";
 
     @Autowired
     public UserService(RestTemplate restTemplate) {
@@ -34,5 +35,34 @@ public class UserService {
         String url = API_BASE_URL + "/username/" + username;
         UserDto userDetails = restTemplate.getForObject(url, UserDto.class);
         return userDetails;
+    }
+
+//    public List<UserDto> actualizarEstadosUsuarios() {
+//        ResponseEntity<UserDto[]> response = restTemplate.postForEntity(UPDATE_STATUS_ENDPOINT, null, UserDto[].class);
+//        return Arrays.asList(response.getBody());
+//    }
+
+    // Método para habilitar un usuario
+    public void enableUser(Long userId) {
+        String url = API_BASE_URL + "/enable/" + userId;
+        restTemplate.postForObject(url, null, String.class); // Enviar la solicitud POST
+    }
+
+    // Método para deshabilitar un usuario
+    public void disableUser(Long userId) {
+        String url = API_BASE_URL + "/disable/" + userId;
+        restTemplate.postForObject(url, null, String.class); // <-- espera un String
+    }
+
+    public List<UserDto> getUsersByType(String userType) {
+        String url = API_BASE_URL + "/type/" + userType;
+        ResponseEntity<UserDto[]> response = restTemplate.getForEntity(url, UserDto[].class);
+        return Arrays.asList(response.getBody());
+    }
+
+    public UserDto updateUser(UserDto userDto) {
+        String url = API_BASE_URL + "/" + userDto.getId(); // usa el ID, no el username
+        restTemplate.put(url, userDto);
+        return userDto;
     }
 }

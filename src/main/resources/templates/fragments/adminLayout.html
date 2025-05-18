@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="adminLayoutHead(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title} ?: 'Admin Dashboard'">Admin Dashboard</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/header.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/footer.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/producto/lista.css}">
+  <link rel="stylesheet" th:href="@{/css/fontawesome.css}">
+
+  <!-- FontAwesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body th:fragment="adminLayout(content)">
+
+<div th:insert="~{fragments/adminHeader :: adminHeader}"></div>
+
+<main class="main-content" role="main">
+  <div th:replace="${content}"></div>
+</main>
+
+<div th:insert="~{fragments/adminFooter :: adminFooter}"></div>
+
+<script th:src="@{/js/admin/script.js}"></script>
+</body>
+</html>

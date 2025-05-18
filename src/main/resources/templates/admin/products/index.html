@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/adminLayout :: adminLayoutHead('Listado de Productos')}">
+    <link rel="stylesheet" th:href="@{/css/admin/lista-productos.css}">
+</head>
+<body th:replace="~{fragments/adminLayout :: adminLayout(~{::content})}">
+
+<div th:fragment="content">
+    <div class="list-header">
+        <h1>Listado de Productos</h1>
+        <a th:href="@{/admin/products/add}" class="button-add">Agregar Nuevo Producto</a>
+    </div>
+    <div class="table-container">
+        <table class="lista-productos">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}" data-label="ID"></td>
+                <td th:text="${product.name}" data-label="Nombre"></td>
+                <td th:text="${product.description}" data-label="Descripción"></td>
+                <td th:text="${product.price}" data-label="Precio"></td>
+                <td th:text="${product.category}" data-label="Categoría"></td>
+                <td data-label="Imagen"><img th:src="@{${product.imageUrl}}" alt="${product.name}" style="max-width: 80px; height: auto;" /></td>
+                <td data-label="Acciones">
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">Editar</a> |
+                    <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

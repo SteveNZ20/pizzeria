@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diego's Pizza - La mejor pizza artesanal de la ciudad">
+
+    <title th:block th:insert="${title}"></title>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <th:block th:insert="${head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="main-content" role="main">
+    <div th:replace="${content}"></div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
+<th:block th:insert="${scripts}"></th:block>
+</body>
+</html>

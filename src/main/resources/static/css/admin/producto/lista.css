@@ -1,0 +1,208 @@
+/* Estilos para la tabla de listado de productos */
+.table-container {
+    overflow-x: auto; /* Permite el desplazamiento horizontal en pantallas pequeñas */
+    margin-bottom: 2rem;
+}
+
+.lista-productos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+.lista-productos thead th {
+    background-color: #343a40;
+    color: #fff;
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #454d55;
+    font-weight: bold;
+}
+
+.lista-productos tbody td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #dee2e6;
+    text-align: left;
+}
+
+.lista-productos tbody tr:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+.lista-productos tbody tr:hover {
+    background-color: #ced4da;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.lista-productos img {
+    max-width: 80px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.lista-productos td:last-child {
+    white-space: nowrap; /* Evita que los botones se envuelvan */
+}
+
+.lista-productos td a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    margin-right: 0.5rem;
+    text-decoration: none;
+    color: #007bff;
+    background-color: transparent;
+    border: 1px solid #007bff;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.lista-productos td a:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #0056b3;
+}
+
+.lista-productos td a:last-child {
+    margin-right: 0;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.lista-productos td a:last-child:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #c82333;
+}
+
+/* Estilos para la paginación (si la implementas) */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.25rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.85rem;
+}
+
+.pagination a:hover {
+    background-color: #e9ecef;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* Estilos para el encabezado de la lista (título y botón) */
+.list-header {
+    display: flex;
+    justify-content: space-between; /* Coloca los elementos en los extremos */
+    align-items: center; /* Alinea verticalmente al centro */
+    margin-bottom: 1.5rem; /* Aumenta un poco el margen inferior */
+}
+
+.list-header h1 {
+    margin-bottom: 0; /* Elimina el margen inferior predeterminado del h1 */
+    font-size: 1.75rem; /* Ajusta el tamaño del título */
+}
+
+/* Estilos para el botón "Agregar Nuevo Producto" */
+.button-add {
+    display: inline-block;
+    padding: 0.8rem 1.5rem; /* Aumenta el padding para un botón más grande */
+    text-decoration: none;
+    color: #fff;
+    background-color: #28a745; /* Color verde */
+    border: 1px solid #28a745;
+    border-radius: 0.25rem;
+    font-size: 1rem; /* Aumenta el tamaño de la fuente del botón */
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Añade una ligera sombra */
+}
+
+.button-add:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .lista-productos thead {
+        display: none; /* Oculta la cabecera en pantallas pequeñas */
+    }
+
+    .lista-productos tbody,
+    .lista-productos tr,
+    .lista-productos td {
+        display: block;
+        width: 100%;
+    }
+
+    .lista-productos tr {
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+
+    .lista-productos td {
+        padding-left: 50%;
+        position: relative;
+        border-bottom: none;
+        text-align: left;
+    }
+
+    .lista-productos td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0.75rem;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .lista-productos td:last-child {
+        text-align: center; /* Centra los botones de acción en móvil */
+    }
+
+    .lista-productos td a {
+        display: block;
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .list-header {
+        flex-direction: column; /* Apila el título y el botón en pantallas pequeñas */
+        align-items: flex-start; /* Alinea al inicio en pantallas pequeñas */
+        gap: 0.75rem; /* Aumenta el espacio entre el título y el botón */
+    }
+
+    .list-header h1 {
+        font-size: 1.5rem; /* Ajusta el tamaño del título en móvil */
+    }
+
+    .button-add {
+        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        text-align: center;
+    }
+}
