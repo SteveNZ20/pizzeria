@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Diego's Pizza - La mejor pizza artesanal de la ciudad">
+
+    <title>Inicio - Diego's Pizza</title>
+
+    <!-- Preconexión para CDN -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Favicon (deberías añadir el tuyo) -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+<!-- Header Fragment -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+    <section>
+
+        <!-- Encabezado de acciones -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <button id="btnGuardar" disabled>Guardar</button>
+            <div>
+                <strong>
+                    <p>Total a pagar: S/ <span th:text="${total}">0.00</span></p>
+                </strong>
+                <button style="margin-left: 1rem;">Pagar</button>
+            </div>
+        </div>
+
+        <!-- Tabla de productos -->
+        <table class="lista-productos">
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order, iterStat : ${orders}">
+                <td th:text="${order.product_name}">Pizza Pepperoni</td>
+                <td>
+                    <input type="number" min="1"
+                           th:value="${order.quantity}"
+                           th:id="'cantidad-' + ${iterStat.index}"
+                           th:attr="data-id=${order.id}"
+                           disabled>
+                </td>
+                <td th:text="${order.price}">24.90</td>
+                <td>
+                    <img th:src="${order.image}" alt="Imagen del producto" style="max-width: 100px;">
+                </td>
+                <td>
+                    <button type="button"
+                            th:id="'btnEditar-' + ${iterStat.index}"
+                            th:onclick="'habilitarCantidad(' + ${iterStat.index} + ')'" >
+                        Editar
+                    </button>
+                    <button type="button">Eliminar</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<!-- Footer Fragment -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/carrito_compras.js}" defer></script>
+</body>
+</html>

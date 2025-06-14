@@ -2,11 +2,14 @@ package com.steve.pizzeria.controller.admin;
 
 import com.steve.pizzeria.dto.ProductDto;
 import com.steve.pizzeria.services.ProductService;
+import com.steve.pizzeria.dto.UserDto;
+import com.steve.pizzeria.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -27,6 +30,8 @@ public class ProductsController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     /**
      * Muestra la vista principal del listado de productos en el panel de administrador.
@@ -97,9 +102,18 @@ public class ProductsController {
      * @return vista HTML correspondiente: "index"
      */
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, Principal principal) {
+        // Obtener lista de productos y agregarla al modelo
         List<ProductDto> products = productService.getAllProducts();
         model.addAttribute("products", products);
+
+        // Si el usuario está autenticado, obtener su info y agregarla al modelo
+        if (principal != null) {
+            String username = principal.getName();
+            UserDto user = userService.getUserDetailsByUsername(username);
+            model.addAttribute("user", user);
+        }
+
         return "index";
     }
 }

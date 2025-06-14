@@ -7,13 +7,9 @@
 
   <title>Inicio - Diego's Pizza</title>
 
-  <!-- Preconexión para CDN -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
-  <!-- Favicon (deberías añadir el tuyo) -->
   <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,7 +19,6 @@
   <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
-<!-- Header Fragment -->
 <div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
@@ -32,27 +27,94 @@
     <p>La mejor pizza artesanal de la ciudad</p>
     <a th:href="@{/menu}" class="btn">Ver Menú</a>
   </section>
-  <!-- más contenido aquí -->
+
   <section class="menu-section">
-    <h2>Productos Destacados</h2>
+    <h2>Pizzas</h2>
     <div class="product-grid">
-      <div class="product-card" th:each="product : ${products}">
+      <div class="product-card" th:each="product : ${products}" th:if="${product.category == 'pizzas'}">
+        <div th:if="${user != null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}, data-user=${user.id}">
+        </div>
+        <div th:if="${user == null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}">
+        </div>
         <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="product-image">
         <div class="product-details">
           <h3 th:text="${product.name}">Nombre del Producto</h3>
           <p class="description" th:text="${product.description}">Descripción breve del producto.</p>
           <p class="price">S/ <span th:text="${product.price}">0.00</span></p>
+          <button th:if="${user != null}" class="btn add-to-cart">Agregar al carrito</button>
+          <a th:if="${user == null}" th:href="@{/login}" class="btn">Inicia sesión para comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>Pastas</h2>
+    <div class="product-grid">
+      <div class="product-card" th:each="product : ${products}" th:if="${product.category == 'pastas'}">
+        <div th:if="${user != null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}, data-user=${user.id}">
+        </div>
+        <div th:if="${user == null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}">
+        </div>
+        <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="product-image">
+        <div class="product-details">
+          <h3 th:text="${product.name}">Nombre del Producto</h3>
+          <p class="description" th:text="${product.description}">Descripción breve del producto.</p>
+          <p class="price">S/ <span th:text="${product.price}">0.00</span></p>
+          <button th:if="${user != null}" class="btn add-to-cart">Agregar al carrito</button>
+          <a th:if="${user == null}" th:href="@{/login}" class="btn">Inicia sesión para comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>Bebidas</h2>
+    <div class="product-grid">
+      <div class="product-card" th:each="product : ${products}" th:if="${product.category == 'bebidas'}">
+        <div th:if="${user != null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}, data-user=${user.id}">
+        </div>
+        <div th:if="${user == null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}">
+        </div>
+        <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="product-image">
+        <div class="product-details">
+          <h3 th:text="${product.name}">Nombre del Producto</h3>
+          <p class="description" th:text="${product.description}">Descripción breve del producto.</p>
+          <p class="price">S/ <span th:text="${product.price}">0.00</span></p>
+          <button th:if="${user != null}" class="btn add-to-cart">Agregar al carrito</button>
+          <a th:if="${user == null}" th:href="@{/login}" class="btn">Inicia sesión para comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <h2>Extras</h2>
+    <div class="product-grid">
+      <div class="product-card" th:each="product : ${products}" th:if="${product.category == 'extras'}">
+        <div th:if="${user != null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}, data-user=${user.id}">
+        </div>
+        <div th:if="${user == null}"
+             th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}">
+        </div>
+        <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="product-image">
+        <div class="product-details">
+          <h3 th:text="${product.name}">Nombre del Producto</h3>
+          <p class="description" th:text="${product.description}">Descripción breve del producto.</p>
+          <p class="price">S/ <span th:text="${product.price}">0.00</span></p>
+          <button th:if="${user != null}" class="btn add-to-cart">Agregar al carrito</button>
+          <a th:if="${user == null}" th:href="@{/login}" class="btn">Inicia sesión para comprar</a>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<!-- Footer Fragment -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- JavaScript -->
 <script th:src="@{/js/header.js}" defer></script>
 <script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/agregar_carrito.js}" defer></script>
 </body>
 </html>

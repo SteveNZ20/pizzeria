@@ -7,7 +7,7 @@
                 <a th:href="@{/}" class="nav-link">Inicio</a>
                 <a th:href="@{/#about}" class="nav-link">Nosotros</a>
                 <a th:href="@{/menu}" class="nav-link">Menú</a>
-                <a th:href="@{/orders}" class="nav-link">Pedidos</a>
+                <a th:href="@{/orders-details}" class="nav-link">Pedidos</a>
                 <a th:href="@{/#faq}" class="nav-link">FAQ</a>
             </nav>
 
@@ -40,7 +40,7 @@
                     <span class="tooltip-text">Pedidos</span>
                 </a>
 
-                <a href="/cart" th:href="@{/cart}" class="fas fa-shopping-cart icon-btn tooltip" aria-label="Carrito">
+                <a href="/cart" th:href="@{/orders}" class="fas fa-shopping-cart icon-btn tooltip" aria-label="Carrito">
                     <span class="cart-count" th:text="'(' + ${cartCount != null ? cartCount : 0} + ')'">(0)</span>
                     <span class="tooltip-text">Carrito</span>
                 </a>
