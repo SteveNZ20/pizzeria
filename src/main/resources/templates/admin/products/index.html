@@ -14,7 +14,6 @@
         <table class="lista-productos">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Precio</th>
@@ -25,7 +24,6 @@
             </thead>
             <tbody>
             <tr th:each="product : ${products}">
-                <td th:text="${product.id}" data-label="ID"></td>
                 <td th:text="${product.name}" data-label="Nombre"></td>
                 <td th:text="${product.description}" data-label="Descripción"></td>
                 <td th:text="${product.price}" data-label="Precio"></td>
