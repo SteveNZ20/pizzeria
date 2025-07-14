@@ -1,0 +1,166 @@
+/* Basic styling for the payment form */
+.payment-container {
+    max-width: 800px; /* Aumentado para acomodar formularios laterales */
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #fff;
+    display: flex; /* Para poner los formularios lado a lado */
+    gap: 20px; /* Espacio entre las secciones */
+}
+.payment-main-section {
+    flex: 1; /* Ocupa el espacio disponible */
+}
+.payment-details p {
+    font-size: 1.1em;
+    margin-bottom: 0.5rem;
+}
+.payment-method-selection label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1em;
+    cursor: pointer;
+}
+.payment-method-selection input[type="radio"] {
+    margin-right: 0.5rem;
+}
+.payment-actions {
+    text-align: right;
+    margin-top: 1.5rem;
+}
+.payment-actions button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1em;
+    background-color: #28a745; /* Green for confirm */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.6; /* Deshabilitado por defecto */
+    cursor: not-allowed;
+}
+.payment-actions button.enabled {
+    opacity: 1;
+    cursor: pointer;
+}
+.payment-actions button:hover.enabled {
+    background-color: #218838;
+}
+
+/* Styles for hidden forms */
+.payment-forms-container {
+    flex: 1; /* Ocupa el otro espacio disponible */
+    padding-left: 20px;
+    border-left: 1px solid #eee;
+}
+.payment-form-section {
+    display: none; /* Oculto por defecto */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+.payment-form-section h3 {
+    margin-top: 0;
+    color: #333;
+}
+.payment-form-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+.payment-form-section input[type="text"],
+.payment-form-section input[type="number"],
+.payment-form-section select {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.payment-form-section .form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.payment-form-section .form-row > div {
+    flex: 1;
+}
+.qr-code-section {
+    text-align: center;
+}
+.qr-code-section img {
+    max-width: 180px; /* Tamaño del QR */
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+/* Style for the new "Pagar" buttons */
+.payment-form-section .action-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1em;
+    background-color: #007bff; /* Blue for action */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+.payment-form-section .action-button:hover {
+    background-color: #0056b3;
+}
+
+/* --- Estilos para el Modal QR --- */
+.qr-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1000; /* Por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilitar scroll si el contenido es muy grande */
+    background-color: rgba(0,0,0,0.8); /* Fondo semitransparente oscuro */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque opcional */
+}
+.qr-modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    max-width: 90%; /* Limitar ancho máximo */
+    max-height: 90%; /* Limitar alto máximo */
+    overflow: hidden; /* Ocultar desbordamiento si la imagen es demasiado grande */
+}
+.qr-modal-content img {
+    max-width: 100%;
+    max-height: calc(100vh - 100px); /* Ajustar a la altura de la ventana con margen */
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+}
+.qr-modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.qr-modal-close:hover,
+.qr-modal-close:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}

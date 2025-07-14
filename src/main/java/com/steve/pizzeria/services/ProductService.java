@@ -18,6 +18,7 @@ public class ProductService {
 
     private final RestTemplate restTemplate;
     private final String API_BASE_URL = "http://localhost:9091/products";
+    private final String UPDATE_STATUS_ENDPOINT = API_BASE_URL + "/update-status";
 
     @Autowired
     public ProductService(RestTemplate restTemplate) {

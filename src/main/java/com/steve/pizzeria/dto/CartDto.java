@@ -60,4 +60,21 @@ public class CartDto {
     public void setQuantity(int quantity) {this.quantity = quantity;}
     public String getImage() {return image;}
     public void setImage(String image) {this.image = image;}
+
+    public CharSequence getProductName() {
+        return productName;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+
+    public void setUserId(int i) {
+        this.userId = i;
+    }
 }
