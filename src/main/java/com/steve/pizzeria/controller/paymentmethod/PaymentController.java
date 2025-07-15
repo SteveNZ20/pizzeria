@@ -3,11 +3,12 @@ package com.steve.pizzeria.controller.paymentmethod;
 import com.steve.pizzeria.dto.PaymentDto;
 import com.steve.pizzeria.services.PaymentService;
 import com.steve.pizzeria.services.UserService;
-import com.steve.pizzeria.services.CartService;
+import com.steve.pizzeria.services.CartService; // Asegúrate de tener este servicio si vas a limpiar el carrito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes; // Nuevo: Importa RedirectAttributes
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,6 @@ public class PaymentController {
     @Autowired
     private CartService cartService;
 
-    // Este método es el que renderiza la vista payment_method/index.html
     @GetMapping("/select")
     public String selectPaymentMethod(@RequestParam("amount") double amount, Model model, Principal principal) {
         Long userId = null;
@@ -43,7 +43,7 @@ public class PaymentController {
 
         String status = "PENDING";
 
-        model.addAttribute("amount", amount); // Ya usa 'amount'
+        model.addAttribute("amount", amount);
         model.addAttribute("userId", userId);
         model.addAttribute("status", status);
 
@@ -52,14 +52,14 @@ public class PaymentController {
         return "payment_method/index";
     }
 
-    // Este método procesa el formulario de pago de payment_method/index.html
     @PostMapping("/process")
     public String processPayment(
-            @RequestParam("amount") double amount, // Ya usa 'amount'
+            @RequestParam("amount") double amount,
             @RequestParam("userId") Long userId,
             @RequestParam("paymentMethod") String paymentMethod,
             @RequestParam("status") String status,
-            Model model
+            Model model,
+            RedirectAttributes redirectAttributes // Nuevo: Inyecta RedirectAttributes
     ) {
         if (userId == null) {
             logger.error("Intento de procesar pago sin ID de usuario en el formulario.");
@@ -69,26 +69,32 @@ public class PaymentController {
 
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setUserId(userId);
-        paymentDto.setAmount(amount); // Correcto, usa 'amount'
+        paymentDto.setAmount(amount);
         paymentDto.setPaymentMethod(paymentMethod);
         paymentDto.setStatus(status);
 
         logger.info("Intentando procesar pago para UserID: {}, Monto: {}, Método: {}, Estado: {}",
-                userId, amount, paymentMethod, status); // Correcto, usa 'amount'
+                userId, amount, paymentMethod, status);
 
         try {
             PaymentDto savedPayment = paymentService.savePayment(paymentDto);
 
             if (savedPayment != null && savedPayment.getId() != null) {
                 logger.info("Pago registrado exitosamente con ID: {}", savedPayment.getId());
-                model.addAttribute("paymentMessage", "¡Pago realizado con éxito!");
-                model.addAttribute("paymentStatus", "success");
+
+                // Ahora usamos RedirectAttributes para pasar mensajes de forma segura
+                redirectAttributes.addFlashAttribute("paymentMessage", "¡Pago realizado con éxito!");
+                redirectAttributes.addFlashAttribute("paymentStatus", "success");
 
                 // Opcional: Limpiar el carrito después de un pago exitoso
-                // cartService.clearUserCart(userId);
-                // logger.info("Carrito del usuario {} vaciado después del pago.", userId);
+                // if (cartService != null) {
+                //    cartService.clearUserCart(userId);
+                //    logger.info("Carrito del usuario {} vaciado después del pago.", userId);
+                // }
 
-                return "redirect:/payment_success?paymentId=" + savedPayment.getId();
+                // Redirige a la página de confirmación, pasando el userId como query parameter
+                return "redirect:/orders_details?userId=" + userId;
+
             } else {
                 logger.error("Fallo al registrar el pago: La API devolvió un objeto nulo o sin ID.");
                 model.addAttribute("paymentMessage", "Error al procesar el pago. Intente de nuevo.");
