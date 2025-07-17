@@ -63,6 +63,47 @@ function validateCardForm() {
     let allFieldsValid = true;
     let validationMessage = '';
 
+    // Datos de las tarjetas permitidas
+    const allowedCards = [
+        {
+            brand: 'Visa',
+            number: '4111111111111111',
+            type: 'Credit',
+            name: 'Juan Pérez',
+            cvv: '123',
+            month: '08',
+            year: '2026'
+        },
+        {
+            brand: 'American Express',
+            number: '340000000000023',
+            type: 'Credit',
+            name: 'Diego Castro',
+            cvv: '147',
+            month: '06',
+            year: '2029'
+        },
+        {
+            brand: 'MasterCard',
+            number: '5500000000000053',
+            type: 'Debit',
+            name: 'Nicolás Herrera',
+            cvv: '357',
+            month: '09',
+            year: '2029'
+        }
+    ];
+
+    // Obtener los valores del formulario
+    const selectedBrand = document.querySelector('input[name="paymentMethod"]:checked').value;
+    const cardNumber = document.getElementById('cardNumber').value.trim();
+    const cardType = document.getElementById('cardType').value.trim();
+    const cardHolderName = document.getElementById('cardHolderName').value.trim();
+    const cvv = document.getElementById('cvv').value.trim();
+    const expiryMonth = document.getElementById('expiryMonth').value.trim();
+    const expiryYear = document.getElementById('expiryYear').value.trim();
+
+    // 1. Primero, realiza la validación de campos vacíos y formato
     cardInputs.forEach(input => {
         if (!input.value.trim()) {
             allFieldsValid = false;
@@ -77,12 +118,10 @@ function validateCardForm() {
         }
     });
 
-    const expiryMonth = document.getElementById('expiryMonth').value;
-    const expiryYear = document.getElementById('expiryYear').value;
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth() + 1;
-
+    // 2. A continuación, si los campos tienen un formato válido, verifica si la fecha de expiración es válida
     if (allFieldsValid) {
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
         if (parseInt(expiryYear) < currentYear || (parseInt(expiryYear) === currentYear && parseInt(expiryMonth) < currentMonth)) {
             allFieldsValid = false;
             validationMessage = 'La fecha de vencimiento no puede ser anterior a la actual.';
@@ -94,13 +133,31 @@ function validateCardForm() {
         }
     }
 
+    // 3. Finalmente, si los campos y la fecha son válidos, verifica si la tarjeta existe en la lista de permitidas.
+    if (allFieldsValid) {
+        const matchingCard = allowedCards.find(card =>
+            card.brand === selectedBrand &&
+            card.number === cardNumber &&
+            card.type === cardType &&
+            card.name.toLowerCase() === cardHolderName.toLowerCase() &&
+            card.cvv === cvv &&
+            card.month === expiryMonth &&
+            card.year === expiryYear
+        );
+
+        if (!matchingCard) {
+            allFieldsValid = false;
+            validationMessage = 'Datos de tarjeta inválidos o tarjeta no permitida/inactiva.';
+        }
+    }
+
+    // 4. Maneja el resultado final de la validación
     const cardValidationMessage = document.getElementById('cardValidationMessage');
     if (allFieldsValid) {
-        cardValidationMessage.textContent = 'Datos de tarjeta válidos localmente. Puedes confirmar el pago.';
+        cardValidationMessage.textContent = 'Validación exitosa. Puedes confirmar el pago.';
         cardValidationMessage.style.color = 'green';
         confirmPaymentBtn.disabled = false;
         confirmPaymentBtn.classList.add('enabled');
-        // Aquí se cambia el estado a PROCESS
         paymentStatusInput.value = 'PROCESS';
         paymentStatusDisplay.textContent = 'PROCESS';
     } else {
@@ -108,7 +165,6 @@ function validateCardForm() {
         cardValidationMessage.style.color = 'red';
         confirmPaymentBtn.disabled = true;
         confirmPaymentBtn.classList.remove('enabled');
-        // Si la validación falla, el estado debe permanecer PENDING o volver a PENDING
         paymentStatusInput.value = 'PENDING';
         paymentStatusDisplay.textContent = 'PENDING';
     }

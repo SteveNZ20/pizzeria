@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/adminLayout :: adminLayoutHead('Pedidos Completados')}">
+    <link rel="stylesheet" th:href="@{/css/admin/lista-productos.css}">
+</head>
+<link rel="stylesheet" th:href="@{/css/admin/orders/orders-complete-styles.css}">
+<body th:replace="~{fragments/adminLayout :: adminLayout(~{::content})}">
+
+<div th:fragment="content">
+    <div class="list-header">
+        <h1>Pedidos Completados</h1>
+    </div>
+
+    <div class="summary-card-container">
+        <article class="dashboard-card">
+            <h2>S/ <span th:text="${#numbers.formatDecimal(totalCompletedAmount, 0, 'COMMA', 2, 'POINT')}">0.00</span></h2>
+            <p>Total Recaudado</p>
+        </article>
+    </div>
+
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Monto</th>
+                <th>Método de Pago</th>
+                <th>Fecha de Creación</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(orders)}">
+                <td colspan="6" style="text-align: center; padding: 30px; font-style: italic; color: #777;">No hay pedidos completados en el registro.</td>
+            </tr>
+            <tr th:each="order : ${orders}">
+                <td data-label="ID" th:text="${order.id}"></td>
+                <td data-label="Usuario" th:text="${order.userName}"></td>
+                <td data-label="Monto">S/ <span th:text="${#numbers.formatDecimal(order.amount, 0, 'COMMA', 2, 'POINT')}"></span></td>
+                <td data-label="Método de Pago" th:text="${order.paymentMethod}"></td>
+                <td data-label="Fecha de Creación" th:text="${#dates.format(order.fechaCreacion, 'dd-MM-yyyy HH:mm')}"></td>
+                <td data-label="Estado" class="status success" th:text="${order.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

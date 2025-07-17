@@ -1,11 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE: html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Historial de pedidos de tu cuenta en Diego's Pizza.">
+
+    <title>Mis Pedidos - Diego's Pizza</title>
+
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/order_details/order_details.css}">
 </head>
 <body>
-<h1>Hello World!</h1>
-<p>Esta vista es del carrito de compras</p>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+    <section class="orders-section">
+        <h1 class="orders-title">Mis Pedidos</h1>
+        <p class="user-info">Mostrando pedidos para el usuario con ID: <strong th:text="${userId}">[ID de usuario]</strong></p>
+
+        <div class="orders-table-container">
+            <table class="orders-table">
+                <thead>
+                <tr>
+                    <th>ID de Pedido</th>
+                    <th>Monto</th>
+                    <th>Método de Pago</th>
+                    <th>Observaciones</th>
+                    <th>Fecha de Creación</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(orders)}">
+                    <td colspan="6" class="no-orders-message">No se encontraron pedidos para este usuario. ¡Explora nuestro menú y haz tu primer pedido!</td>
+                </tr>
+                <tr th:each="order : ${orders}">
+                    <td data-label="ID de Pedido" th:text="${order.id}">1</td>
+                    <td data-label="Monto">S/ <span th:text="${#numbers.formatDecimal(order.amount, 0, 'COMMA', 2, 'POINT')}">0.00</span></td>
+                    <td data-label="Método de Pago" th:text="${order.paymentMethod}">Tarjeta de Crédito</td>
+                    <td data-label="Observaciones" th:text="${order.observations}">Sin aceitunas</td>
+                    <td data-label="Fecha de Creación" th:text="${#dates.format(order.fechaCreacion, 'dd-MM-yyyy HH:mm')}"></td>
+                    <td data-label="Estado" th:text="${order.status}">En proceso</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="back-link-container">
+            <a th:href="@{/}" class="back-link">Volver al inicio</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

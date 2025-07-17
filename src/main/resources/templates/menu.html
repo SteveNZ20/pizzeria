@@ -3,43 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Diego's Pizza - La mejor pizza artesanal de la ciudad">
+    <meta name="description" content="Explora nuestro delicioso menú de pizzas, pastas, bebidas y más.">
 
-    <title>Inicio - Diego's Pizza</title>
+    <title>Menú - Diego's Pizza</title>
 
-    <!-- Preconexión para CDN -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-
-    <!-- Favicon (deberías añadir el tuyo) -->
     <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
 
-    <!-- CSS -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
 </head>
 <body>
-<!-- Header Fragment -->
+
 <div th:replace="~{fragments/header :: header}"></div>
 
-<main class="container">
-    <section class="hero">
-        <h1>Bienvenido a Diego's Pizza</h1>
-        <p>La mejor pizza artesanal de la ciudad</p>
-        <a th:href="@{/menu}" class="btn">Ver Menú</a>
+<main class="menu-page">
+    <section class="menu-hero">
+        <h1 class="menu-title">Nuestro Menú</h1>
+        <p class="menu-subtitle">Ingredientes frescos, pasión artesanal. ¡Descubre tu próxima comida favorita!</p>
     </section>
-    <!-- más contenido aquí -->
+
+    <div class="menu-categories-container">
+        <th:block th:each="categoryName : ${categories}">
+            <section class="menu-section" th:id="${'category-' + categoryName.toLowerCase()}">
+                <h2 class="category-title" th:text="${categoryName}">Categoría</h2>
+                <div class="product-grid">
+                    <div class="product-card" th:each="product : ${productsByCategory.get(categoryName)}">
+                        <img th:src="@{${product.imageUrl}}" th:alt="${product.name}" class="product-image">
+                        <div class="product-details">
+                            <h3 class="product-name" th:text="${product.name}">Nombre del Producto</h3>
+                            <p class="product-description" th:text="${product.description}">Descripción breve.</p>
+                            <div class="product-cta">
+                                <p class="product-price">S/ <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+                                <th:block th:if="${user != null}">
+                                    <button class="add-to-cart-btn" aria-label="Agregar al carrito"
+                                            th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${product.price}, data-img=${product.imageUrl}, data-user=${user.id}">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </button>
+                                </th:block>
+                                <th:block th:if="${user == null}">
+                                    <a th:href="@{/login}" class="login-to-buy-btn">
+                                        Inicia sesión para comprar
+                                    </a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </th:block>
+    </div>
 </main>
 
-<!-- Footer Fragment -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- JavaScript -->
 <script th:src="@{/js/header.js}" defer></script>
-<script th:src="@{/js/main.js}" defer></script>
+<script th:src="@{/js/menu.js}" defer></script>
+<script th:src="@{/js/agregar_carrito.js}" defer></script>
 </body>
 </html>

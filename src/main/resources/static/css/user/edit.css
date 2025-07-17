@@ -1,0 +1,143 @@
+/* Variables para mantener la consistencia */
+:root {
+    --white: #ffffff;
+    --black: #1a1a1a;
+    --primary: #e74c3c;
+    --primary-hover: #c0392b;
+    --secondary: #bdc3c7;
+    --secondary-hover: #95a5a6;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease-in-out;
+}
+
+body {
+    background-color: var(--gray-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Estilo principal de la tarjeta del formulario */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: auto; /* Centra el formulario */
+}
+
+.form-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--black);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Estilo de los grupos de formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    color: var(--gray-dark);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    color: var(--black);
+    background-color: var(--gray-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+    background-color: var(--white);
+}
+
+/* Estilo de los botones y acciones del formulario */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.button.primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.button.primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.button.secondary {
+    background-color: var(--secondary);
+    color: var(--black);
+}
+
+.button.secondary:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(149, 165, 166, 0.3);
+}
+
+/* Responsividad para móviles */
+@media (max-width: 576px) {
+    .form-card {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .button {
+        width: 100%;
+    }
+}

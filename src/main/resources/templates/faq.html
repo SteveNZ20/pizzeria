@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Preguntas frecuentes sobre Diego's Pizza. Encuentra respuestas a tus dudas sobre nuestros productos, pedidos y más.">
+
+    <title>FAQ - Diego's Pizza</title>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/faq.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="faq-page">
+    <section class="faq-hero">
+        <h1 class="faq-title">Preguntas Frecuentes</h1>
+        <p class="faq-subtitle">¿Tienes dudas? Aquí resolvemos las preguntas más comunes sobre nuestros productos y servicios.</p>
+    </section>
+
+    <div class="faq-content">
+        <div class="faq-accordion">
+            <div class="accordion-item">
+                <button class="accordion-question">
+                    ¿Ofrecen opciones sin gluten o veganas?
+                </button>
+                <div class="accordion-answer">
+                    <p>Sí, en Diego's Pizza nos esforzamos por incluir opciones para todos. Consulta nuestro menú en línea o pregunta a nuestro personal para conocer las opciones disponibles sin gluten y veganas.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-question">
+                    ¿Cuál es el tiempo de entrega estimado?
+                </button>
+                <div class="accordion-answer">
+                    <p>El tiempo de entrega suele ser de 30 a 45 minutos, pero puede variar según la demanda y tu ubicación. Te mantendremos informado sobre el estado de tu pedido.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-question">
+                    ¿Puedo personalizar mi pizza?
+                </button>
+                <div class="accordion-answer">
+                    <p>¡Por supuesto! Puedes crear tu propia pizza eligiendo entre nuestra variedad de ingredientes frescos y de alta calidad. Solo tienes que seleccionar la opción en el menú y agregar los ingredientes que desees.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-question">
+                    ¿Aceptan pagos con tarjeta de crédito?
+                </button>
+                <div class="accordion-answer">
+                    <p>Aceptamos pagos con todas las principales tarjetas de crédito y débito, además de otros métodos de pago en línea como Yape y Plin.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-images">
+            <img th:src="@{/images/faq/ingredientes.avif}" alt="Ingredientes frescos" class="faq-image">
+            <img th:src="@{/images/faq/pizza.jpeg}" alt="Pizza recién hecha" class="faq-image">
+            <img th:src="@{/images/faq/mesa.jpg}" alt="Mesa con platos de pasta y pizza" class="faq-image">
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/faq.js}" defer></script>
+</body>
+</html>

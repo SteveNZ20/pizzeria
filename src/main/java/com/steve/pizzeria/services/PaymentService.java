@@ -17,6 +17,7 @@ public class PaymentService {
 
     private final RestTemplate restTemplate;
     private final String API_BASE_URL = "http://localhost:9093/payments";
+    //private final String API_BASE_URL = "http://192.168.18.17:9093/payments";
     private static final Logger logger = LoggerFactory.getLogger(PaymentService.class);
 
     // Credenciales para la autenticación básica del backend de pagos

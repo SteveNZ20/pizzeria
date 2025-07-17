@@ -14,6 +14,7 @@ public class UserService {
 
     private final RestTemplate restTemplate;
     private final String API_BASE_URL = "http://localhost:9090/users";
+    //private final String API_BASE_URL = "http://192.168.18.17:9090/users";
     private final String UPDATE_STATUS_ENDPOINT = API_BASE_URL + "/update-status";
 
     @Autowired

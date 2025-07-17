@@ -1,20 +1,17 @@
 package com.steve.pizzeria.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CartDto {
 
     private Long id;
-    @JsonProperty("userId")
-    private int userId;
+    // userId ya es Long, y con los getters/setters correctos, @JsonProperty no es estrictamente necesario aquí.
+    private Long userId;
 
-    @JsonProperty("productId")
-    private int productId;
+    // Cambiado a Long para coincidir con OrderDetailsModel del backend
+    private Long productId;
 
-    @JsonProperty("productName")
     private String productName;
-
     private double price;
     private int quantity;
     private String image;
@@ -35,7 +32,7 @@ public class CartDto {
      * @param quantity cantidad del producto pedido
      * @param image URL de la imagen del producto
      */
-    public CartDto(Long id, int userId, int productId, String productName, double price, int quantity, String image) {
+    public CartDto(Long id, Long userId, Long productId, String productName, double price, int quantity, String image) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;
@@ -45,36 +42,25 @@ public class CartDto {
         this.image = image;
     }
 
-    // Getters y Setters
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-    public int getUser_id() {return userId;}
-    public void setUser_id(int user_id) {this.userId = user_id;}
-    public int getProduct_id() {return productId;}
-    public void setProduct_id(int product_id) {this.productId = product_id;}
-    public String getProduct_name() {return productName;}
-    public void setProduct_name(String product_name) {this.productName = product_name;}
-    public double getPrice() {return price;}
-    public void setPrice(double price) {this.price = price;}
-    public int getQuantity() {return quantity;}
-    public void setQuantity(int quantity) {this.quantity = quantity;}
-    public String getImage() {return image;}
-    public void setImage(String image) {this.image = image;}
+    // Getters y Setters Estándar (CamelCase)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public CharSequence getProductName() {
-        return productName;
-    }
+    public Long getUserId() { return userId; } // Corregido de getUser_id()
+    public void setUserId(Long userId) { this.userId = userId; } // Corregido de setUser_id()
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+    public Long getProductId() { return productId; } // Corregido de getProduct_id() y tipo a Long
+    public void setProductId(Long productId) { this.productId = productId; } // Corregido de setProduct_id() y tipo a Long
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
+    public String getProductName() { return productName; } // Corregido de getProduct_name() y eliminado duplicado
+    public void setProductName(String productName) { this.productName = productName; } // Corregido de setProduct_name() y eliminado duplicado
 
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public void setUserId(int i) {
-        this.userId = i;
-    }
+    public int getQuantity() { return quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 }

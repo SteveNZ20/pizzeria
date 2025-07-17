@@ -4,7 +4,6 @@ import com.google.common.collect.Ordering;
 import com.steve.pizzeria.dto.CartDto;
 import com.steve.pizzeria.dto.UserDto;
 import com.steve.pizzeria.services.CartService;
-import com.steve.pizzeria.services.OrderService;
 import com.steve.pizzeria.services.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,9 +21,6 @@ import java.util.*;
 public class CartController {
 
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
-
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     private CartService cartService;
@@ -61,11 +57,11 @@ public class CartController {
                 .reverse()
                 .immutableSortedCopy(orders);
 
-        double total = orders.stream().mapToDouble(CartDto::getPrice).sum();
+        double total = orders.stream().mapToDouble(order -> order.getPrice() * order.getQuantity()).sum();
         logger.info("Se cargaron {} productos para el usuario ID {}. Total: {}", orders.size(), userId, total);
 
         model.addAttribute("orders", orders);
-        model.addAttribute("total", total); // Aquí se sigue pasando 'total' para la vista orders/orderIndex
+        model.addAttribute("total", total);
         model.addAttribute("userId", userId);
         model.addAttribute("user", user);
 
@@ -74,7 +70,7 @@ public class CartController {
 
     @PostMapping("/orders/add")
     public String createOrder(
-            @RequestParam int product_id,
+            @RequestParam Long product_id, // CAMBIO: Tipo a Long para coincidir con CartDto y OrderDetailsModel
             @RequestParam String product_name,
             @RequestParam double price,
             @RequestParam String image,
@@ -95,12 +91,12 @@ public class CartController {
         }
 
         CartDto newCartItem = new CartDto();
-        newCartItem.setProductId(product_id);
+        newCartItem.setProductId(product_id); // Ahora product_id es Long
         newCartItem.setProductName(product_name);
         newCartItem.setPrice(price);
         newCartItem.setQuantity(1);
         newCartItem.setImage(image);
-        newCartItem.setUserId(userIdLong.intValue());
+        newCartItem.setUserId(userIdLong); // CAMBIO: Asignación directa, userIdLong ya es Long
 
         try {
             CartDto savedCartItem = cartService.saveOrder(newCartItem);
@@ -120,12 +116,26 @@ public class CartController {
         return "redirect:/orders";
     }
 
+    @DeleteMapping("/orders/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteOrder(@PathVariable("id") Long id) {
+        try {
+            logger.info("Solicitud de eliminación de producto en carrito con ID: {}", id);
+            cartService.deleteOrder(id);
+            logger.info("Producto en carrito con ID {} eliminado correctamente.", id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            logger.error("Error al eliminar el producto en carrito con ID " + id, e);
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     @PutMapping("/orders/update/{id}")
     @ResponseBody
     public ResponseEntity<Void> updateOrderQuantity(@PathVariable("id") Long id,
                                                     @RequestBody UpdateQuantityRequest request) {
         try {
-            orderService.updateOrderQuantity(id, request.quantity());
+            cartService.updateOrderQuantity(id, request.quantity());
             logger.info("Cantidad actualizada para el producto en carrito ID {}: nueva cantidad {}", id, request.quantity());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -134,17 +144,8 @@ public class CartController {
         }
     }
 
-    /**
-     * Prepara y redirecciona a la vista de selección de método de pago.
-     * Pasa el monto total, el ID de usuario y el estado inicial 'PENDING'.
-     *
-     * @param amount El monto total a pagar, recibido del carrito. // CAMBIO AQUÍ: de 'total' a 'amount'
-     * @param model El modelo para pasar datos a la vista.
-     * @param principal Objeto Principal para obtener el usuario autenticado.
-     * @return El nombre de la vista de métodos de pago o redirección al login.
-     */
     @GetMapping("/payment_method/select")
-    public String selectPaymentMethod(@RequestParam("amount") double amount, Model model, Principal principal) { // CAMBIO AQUÍ: de "total" a "amount"
+    public String selectPaymentMethod(@RequestParam("amount") double amount, Model model, Principal principal) {
         Long userId = null;
         if (principal != null) {
             UserDto loggedInUser = userService.getUserDetailsByUsername(principal.getName());
@@ -160,11 +161,11 @@ public class CartController {
 
         String status = "PENDING";
 
-        model.addAttribute("amount", amount); // CAMBIO AQUÍ: de "total" a "amount"
+        model.addAttribute("amount", amount);
         model.addAttribute("userId", userId);
         model.addAttribute("status", status);
 
-        logger.info("Redirigiendo a la selección de método de pago. Amount: {}, UserID: {}, Status: {}", amount, userId, status); // CAMBIO AQUÍ: de "Total" a "Amount"
+        logger.info("Redirigiendo a la selección de método de pago. Amount: {}, UserID: {}, Status: {}", amount, userId, status);
 
         return "payment_method/index";
     }

@@ -163,6 +163,28 @@
     padding: 0.5rem;
 }
 
+/* Estilo para el botón de cerrar sesión */
+.logout-button {
+    background-color: transparent;
+    color: var(--gray-dark);
+    border: 2px solid var(--gray-dark);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-left: 1rem;
+}
+
+.logout-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .header {
@@ -171,6 +193,11 @@
 
     .navbar {
         gap: 1rem;
+    }
+
+    .logout-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -209,6 +236,13 @@
 
     .icons {
         margin-left: auto;
+    }
+
+    .logout-button {
+        margin-top: 1rem;
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
     }
 }
 

@@ -14,7 +14,7 @@
                     <li><a th:href="@{/}" aria-label="Inicio"><i class="fas fa-home" aria-hidden="true"></i> <span>Inicio</span></a></li>
                     <li><a th:href="@{/admin/products}" aria-label="Productos"><i class="fas fa-box" aria-hidden="true"></i> <span>Productos</span></a></li>
                     <li><a th:href="@{/admin/orders}" aria-label="Pedidos"><i class="fas fa-shopping-cart" aria-hidden="true"></i> <span>Pedidos</span></a></li>
-                    <li><a th:href="@{/admin/accounts}" aria-label="Admins"><i class="fas fa-user-shield" aria-hidden="true"></i> <span>Admins</span></a></li>
+                    <li><a th:href="@{/admin/administrators}" aria-label="Admins"><i class="fas fa-user-shield" aria-hidden="true"></i> <span>Admins</span></a></li>
                     <li><a th:href="@{/admin/users}" aria-label="Usuarios"><i class="fas fa-users" aria-hidden="true"></i> <span>Usuarios</span></a></li>
                 </ul>
             </nav>
@@ -27,9 +27,9 @@
                 </button>
 
                 <!-- Botón perfil -->
-                <button class="icon-btn" onclick="toggleProfile()" aria-label="Abrir menú de perfil" aria-controls="profile-menu" aria-expanded="false">
+                <a href="http://localhost:8080/user/admin" class="icon-btn" aria-label="Abrir menú de perfil">
                     <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </button>
+                </a>
 
                 <!-- Logout -->
                 <form th:action="@{/logout}" method="post" class="logout-form" title="Cerrar sesión">

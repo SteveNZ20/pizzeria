@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/adminLayout :: adminLayoutHead('Pedidos Pendientes')}">
+    <link rel="stylesheet" th:href="@{/css/admin/lista-productos.css}">
+</head>
+<link rel="stylesheet" th:href="@{/css/admin/orders/orders-styles.css}">
+<body th:replace="~{fragments/adminLayout :: adminLayout(~{::content})}">
+
+<div th:fragment="content">
+    <div class="list-header">
+        <h1>Pedidos Pendientes</h1>
+    </div>
+
+    <div th:if="${message}" class="message-container">
+        <p th:text="${message}"></p>
+    </div>
+
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Monto</th>
+                <th>Método de Pago</th>
+                <th>Estado Actual</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(orders)}">
+                <td colspan="6" style="text-align: center; padding: 30px; font-style: italic; color: #777;">No hay pedidos pendientes.</td>
+            </tr>
+            <tr th:each="order : ${orders}">
+                <td data-label="ID" th:text="${order.id}"></td>
+                <td data-label="Usuario" th:text="${order.userName}"></td>
+                <td data-label="Monto">S/ <span th:text="${#numbers.formatDecimal(order.amount, 0, 'COMMA', 2, 'POINT')}"></span></td>
+                <td data-label="Método de Pago" th:text="${order.paymentMethod}"></td>
+                <td data-label="Estado Actual" class="status" th:classappend="${order.status} ? ${order.status.toLowerCase()} : ''" th:text="${order.status}"></td>
+                <td data-label="Acciones">
+                    <form th:action="@{/admin/orders/update_status}" method="post" style="display: inline;">
+                        <input type="hidden" name="orderId" th:value="${order.id}">
+                        <input type="hidden" name="newStatus" value="PREPARING">
+                        <button type="submit" class="btn-action btn-preparing">Preparando</button>
+                    </form>
+
+                    <form th:action="@{/admin/orders/update_status}" method="post" style="display: inline;">
+                        <input type="hidden" name="orderId" th:value="${order.id}">
+                        <input type="hidden" name="newStatus" value="SUCCESS">
+                        <button type="submit" class="btn-action btn-success">Completado</button>
+                    </form>
+
+                    <form th:action="@{/admin/orders/update_status}" method="post" style="display: inline;">
+                        <input type="hidden" name="orderId" th:value="${order.id}">
+                        <input type="hidden" name="newStatus" value="CANCELED">
+                        <button type="submit" class="btn-action btn-canceled">Cancelado</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

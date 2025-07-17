@@ -1,88 +1,142 @@
-/* Estilos generales para la responsividad */
-.user-profile-container {
+/* -- General Styles -- */
+:root {
+    --primary-color: #a30000;
+    --text-color: #333;
+    --gray-dark: #555;
+    --gray-medium: #bbb;
+    --gray-light: #f5f5f5;
+    --white: #fff;
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --border-radius: 10px;
+}
+
+body {
+    background-color: var(--gray-light);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text-color);
+}
+
+.profile-main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height)); /* Ajusta según la altura de tu header y footer */
-    padding: 20px;
-    background-color: #f7f7f7; /* Un fondo suave */
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 150px); /* Ajustar según tu header/footer */
 }
 
 .profile-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 90%;
-    max-width: 600px; /* Ancho máximo para pantallas más grandes */
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 700px;
 }
 
-.profile-title {
-    color: #333;
-    font-size: 1.8em;
-    margin-bottom: 20px;
+.profile-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
     text-align: center;
+    position: relative;
+    padding-bottom: 0.5rem;
 }
 
-.profile-info {
+.profile-card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--gray-medium);
+    border-radius: 2px;
+}
+
+/* -- Profile Information Grid -- */
+.profile-info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Diseño de grid responsivo */
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .info-item {
     display: flex;
-    align-items: center;
-    padding: 10px;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
     border-bottom: 1px solid #eee;
 }
 
-.info-item:last-child {
+.info-item:last-of-type {
     border-bottom: none;
 }
 
 .icon {
-    color: #007bff; /* Color primario */
-    font-size: 1.2em;
-    margin-right: 10px;
-    width: 20px; /* Para alinear los iconos */
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    width: 25px;
     text-align: center;
+    margin-top: 0.2rem;
+}
+
+.info-details {
+    display: flex;
+    flex-direction: column;
 }
 
 .label {
-    font-weight: bold;
-    color: #555;
-    width: 120px; /* Ancho fijo para las etiquetas */
+    font-weight: 600;
+    color: var(--gray-dark);
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
-/* Estilos para pantallas más pequeñas (ejemplo) */
+.value {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+}
+
+/* -- Action Button -- */
+.profile-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.profile-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profile-button:hover {
+    background-color: #8b0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* -- Responsive Styles -- */
 @media (max-width: 768px) {
     .profile-card {
-        padding: 20px;
-        width: 95%;
+        padding: 1.5rem;
     }
 
-    .profile-title {
-        font-size: 1.5em;
-        margin-bottom: 15px;
+    .profile-card-title {
+        font-size: 1.8rem;
     }
 
-    .profile-info {
-        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-        gap: 10px;
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
-
-    .label {
-        width: 100px; /* Ajustar ancho de etiquetas en pantallas pequeñas */
-    }
-}
-
-/* Variables de color (puedes definirlas en un archivo aparte o en la raíz) */
-:root {
-    --primary-color: #007bff;
-    --text-color: #333;
-    --secondary-text-color: #555;
-    --background-color: #f7f7f7;
-    --card-background-color: #fff;
-    --border-color: #eee;
 }

@@ -9,22 +9,31 @@
 
     <div class="grid-container">
 
+      <article class="dashboard-card filter-card">
+        <h2>Filtro de Pedidos</h2>
+        <form th:action="@{/admin}" method="GET" class="filter-form">
+          <label for="startDate">Desde:</label>
+          <input type="date" id="startDate" name="startDate" th:value="${startDate}" class="filter-input">
+
+          <label for="endDate">Hasta:</label>
+          <input type="date" id="endDate" name="endDate" th:value="${endDate}" class="filter-input">
+
+          <button type="submit" class="btn">Filtrar</button>
+        </form>
+        <p>Pedidos filtrados: <span th:text="${numberOfOrders}">0</span></p>
+        <a th:href="@{/admin}" class="btn clear-filter">Limpiar Filtro</a>
+      </article>
+
       <article class="dashboard-card">
-        <h2>S/ <span th:text="${totalPendings}">0</span></h2>
-        <p>Total de pendientes</p>
+        <h2><span th:text="${numberOfPendingOrders}">0</span></h2>
+        <p>Pedidos pendientes</p>
         <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
       </article>
 
       <article class="dashboard-card">
-        <h2>S/ <span th:text="${totalCompletes}">0</span></h2>
+        <h2><span th:text="${numberOfCompletedOrders}">0</span></h2>
         <p>Pedidos Completados</p>
-        <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
-      </article>
-
-      <article class="dashboard-card">
-        <h2 th:text="${numberOfOrders}">0</h2>
-        <p>Pedidos realizados</p>
-        <a th:href="@{/admin/orders}" class="btn">Ver Pedidos</a>
+        <a th:href="@{/admin/orders/completed}" class="btn">Ver Pedidos</a>
       </article>
 
       <article class="dashboard-card">
@@ -42,7 +51,7 @@
       <article class="dashboard-card">
         <h2 th:text="${numberOfAdmins}">0</h2>
         <p>Admins</p>
-        <a th:href="@{/admin/accounts}" class="btn">Ver Admins</a>
+        <a th:href="@{/admin/administrators}" class="btn">Ver Admins</a>
       </article>
 
     </div>

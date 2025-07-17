@@ -1,0 +1,243 @@
+/* -- General Styles -- */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.cart-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cart-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #a30000;
+    margin-bottom: 0.5rem;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cart-total-info {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.cart-total {
+    font-size: 1.6rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.btn-save:hover:not(:disabled) {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-save:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.btn-checkout {
+    background-color: #a30000;
+    color: #fff;
+}
+
+.btn-checkout:hover {
+    background-color: #8b0000;
+    transform: translateY(-2px);
+}
+
+/* -- Cart Table -- */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.cart-table th, .cart-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-table th {
+    background-color: #fafafa;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.product-info-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.quantity-input {
+    width: 60px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* -- Actions -- */
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-action {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.edit-btn {
+    color: #3498db;
+}
+
+.edit-btn:hover:not(:disabled) {
+    color: #2980b9;
+}
+
+.edit-btn:disabled {
+    color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.delete-btn {
+    color: #e74c3c;
+}
+
+.delete-btn:hover {
+    color: #c0392b;
+}
+
+/* -- Empty Cart Message -- */
+.empty-cart-message {
+    text-align: center;
+    padding: 3rem;
+    font-style: italic;
+    color: #777;
+}
+
+.empty-cart-message a {
+    color: #a30000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.empty-cart-message a:hover {
+    text-decoration: underline;
+}
+
+/* -- Responsive Design -- */
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 1rem;
+    }
+
+    .cart-table thead {
+        display: none; /* Oculta el encabezado de la tabla */
+    }
+
+    .cart-table, .cart-item-row, .cart-table tbody, .cart-table tr, .cart-table td {
+        display: block; /* Muestra los elementos como bloques */
+    }
+
+    .cart-item-row {
+        margin-bottom: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .cart-item-row td {
+        border-bottom: none;
+        padding: 0.5rem 0;
+        text-align: right;
+        position: relative;
+    }
+
+    .cart-item-row td::before {
+        content: attr(data-label); /* Usa el atributo data-label para mostrar la etiqueta */
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .product-info-cell {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .product-info-cell span {
+        margin-left: 0;
+    }
+
+    .product-image {
+        margin-bottom: 0.5rem;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

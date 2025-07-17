@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Diego's Pizza - La mejor pizza artesanal de la ciudad">
+    <meta name="description" content="Gestiona los productos en tu carrito de compras antes de finalizar tu pedido.">
 
     <title>Mi Carrito - Diego's Pizza</title>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -13,82 +13,79 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/cart/cart.css}">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 
-<main class="container">
-    <section>
-        <h1 style="text-align: center; margin-bottom: 2rem;">Mi Carrito de Compras</h1>
-
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap;">
-            <div style="margin-right: 1rem;">
-                <button id="btnGuardar" disabled>Guardar Cambios</button>
-            </div>
-            <div style="text-align: right;">
-                <p th:if="${user != null}" style="font-size: 1em; color: #555;">
-                    <span th:text="${user.nombre + ' ' + user.apellido}">[Nombre de Usuario]</span>
-                </p>
-                <strong>
-                    <p style="font-size: 1.3em; color: #333;">Total a pagar: S/ <span id="total-a-pagar" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
-                </strong>
-
-                <button style="margin-left: 1rem;"
-                        th:onclick="'location.href=\'/payment_method/select?amount=\' + document.querySelector(\'#total-a-pagar\').innerText.replace(\'S/ \', \'\').replace(\',\', \'.\') + \'&userId=' + ${userId} + '\''">
-                    Seleccionar método de pago
-                </button>
-
-                 </div>
+<main class="cart-container">
+    <section class="cart-summary">
+        <h1 class="cart-title">Mi Carrito</h1>
+        <div class="user-info" th:if="${user != null}">
+            <p><span th:text="${user.nombre + ' ' + user.apellido}">[Nombre de Usuario]</span></p>
         </div>
+        <div class="cart-total-info">
+            <strong>
+                <p class="cart-total">Total a pagar: S/ <span id="total-a-pagar" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}">0.00</span></p>
+            </strong>
+        </div>
+    </section>
 
-        <table class="lista-productos">
-            <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-                <th>Imagen</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${#lists.isEmpty(orders)}">
-                <td colspan="6" style="text-align: center; padding: 30px; font-style: italic; color: #777;">Tu carrito está vacío. ¡Empieza a agregar productos de nuestro <a th:href="@{/}">menú</a>!</td>
-            </tr>
-            <tr th:each="order, iterStat : ${orders}">
-                <td th:text="${order.productName}">Pizza Pepperoni</td> <td>
+    <div class="cart-actions">
+        <button id="btnGuardar" class="btn btn-save" disabled>Guardar Cambios</button>
+        <button class="btn btn-checkout"
+                th:onclick="'location.href=\'/payment_method/select?amount=\' + document.querySelector(\'#total-a-pagar\').innerText.replace(\'S/ \', \'\').replace(\',\', \'.\') + \'&userId=' + ${userId} + '\''">
+            Seleccionar método de pago
+        </button>
+    </div>
+
+    <table class="cart-table">
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(orders)}">
+            <td colspan="5" class="empty-cart-message">Tu carrito está vacío. ¡Empieza a agregar productos de nuestro <a th:href="@{/menu}">menú</a>!</td>
+        </tr>
+        <tr th:each="order, iterStat : ${orders}" class="cart-item-row">
+            <td class="product-info-cell">
+                <img th:src="${order.image}" alt="Imagen del producto" class="product-image">
+                <span th:text="${order.productName}">Pizza Pepperoni</span>
+            </td>
+            <td th:text="${#numbers.formatDecimal(order.price, 0, 'COMMA', 2, 'POINT')}">24.90</td>
+            <td>
                 <input type="number" min="1"
                        th:value="${order.quantity}"
                        th:id="'cantidad-' + ${iterStat.index}"
                        th:attr="data-id=${order.id}"
-                       style="width: 60px; text-align: center;"
+                       class="quantity-input"
                        disabled>
             </td>
-                <td th:text="${#numbers.formatDecimal(order.price, 0, 'COMMA', 2, 'POINT')}">24.90</td>
-                <td>S/ <span th:text="${#numbers.formatDecimal(order.price * order.quantity, 0, 'COMMA', 2, 'POINT')}">0.00</span></td>
-                <td>
-                    <img th:src="${order.image}" alt="Imagen del producto" style="max-width: 80px; height: auto; border-radius: 5px;">
-                </td>
-                <td>
-                    <button type="button" class="btn-action edit-btn"
-                            th:id="'btnEditar-' + ${iterStat.index}"
-                            th:onclick="'habilitarCantidad(' + ${iterStat.index} + ')'" >
-                        Editar
-                    </button>
-                    <button type="button" class="btn-action delete-btn">Eliminar</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
+            <td>S/ <span th:text="${#numbers.formatDecimal(order.price * order.quantity, 0, 'COMMA', 2, 'POINT')}">0.00</span></td>
+            <td class="actions-cell">
+                <button type="button" class="btn-action edit-btn"
+                        th:id="'btnEditar-' + ${iterStat.index}"
+                        th:onclick="'habilitarCantidad(' + ${iterStat.index} + ')'" >
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="btn-action delete-btn" th:attr="data-id=${order.id}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script th:src="@{/js/header.js}" defer></script>
-<script th:src="@{/js/main.js}" defer></script>
 <script th:src="@{/js/carrito_compras.js}" defer></script>
 </body>
 </html>

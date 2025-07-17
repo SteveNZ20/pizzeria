@@ -1,0 +1,149 @@
+/* Estilos para el encabezado de la lista */
+.list-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.list-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Estilos para el contenedor de mensajes */
+.message-container {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Estilos para el contenedor de la tabla */
+.table-container {
+    overflow-x: auto;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+/* Estilos generales de la tabla */
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+}
+
+/* Estilos del encabezado de la tabla */
+.admin-table thead th {
+    background-color: #2196f3;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    border: none;
+}
+
+/* Estilos para las filas del cuerpo de la tabla */
+.admin-table tbody tr {
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Estilos para las celdas de la tabla */
+.admin-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+}
+
+.admin-table tbody tr:first-child td {
+    border-top: none;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Estilos para el texto de estado del pedido */
+.admin-table .status {
+    font-weight: 600;
+}
+
+.admin-table .status.pending { color: #ffc107; }
+.admin-table .status.preparing { color: #007bff; }
+.admin-table .status.success { color: #28a745; }
+.admin-table .status.canceled { color: #dc3545; }
+
+/* Bordes redondeados en las esquinas de las celdas */
+.admin-table td:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+.admin-table td:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+.admin-table th:first-child { border-top-left-radius: 0.5rem; }
+.admin-table th:last-child { border-top-right-radius: 0.5rem; }
+
+/* Estilos para los botones de acción */
+.btn-action {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-preparing { background-color: #007bff; }
+.btn-success { background-color: #28a745; }
+.btn-canceled { background-color: #dc3545; }
+
+.btn-preparing:hover { background-color: #0056b3; }
+.btn-success:hover { background-color: #218838; }
+.btn-canceled:hover { background-color: #c82333; }
+
+/* Media Query para hacer la tabla responsiva en móviles */
+@media (max-width: 768px) {
+    .table-container {
+        padding: 1rem;
+    }
+    .admin-table thead {
+        display: none;
+    }
+    .admin-table tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #eee;
+        border-radius: 0.5rem;
+    }
+    .admin-table td {
+        padding: 0.5rem 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+    }
+    .admin-table td:last-child {
+        border-bottom: none;
+    }
+    .admin-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 1rem;
+        color: #555;
+    }
+    .admin-table td:first-of-type, .admin-table td:last-of-type {
+        border-radius: 0;
+    }
+}

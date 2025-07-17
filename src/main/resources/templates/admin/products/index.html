@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/adminLayout :: adminLayoutHead('Listado de Productos')}">
     <link rel="stylesheet" th:href="@{/css/admin/lista-productos.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/products-styles.css}">
 </head>
 <body th:replace="~{fragments/adminLayout :: adminLayout(~{::content})}">
 
@@ -11,7 +12,7 @@
         <a th:href="@{/admin/products/add}" class="button-add">Agregar Nuevo Producto</a>
     </div>
     <div class="table-container">
-        <table class="lista-productos">
+        <table class="admin-table">
             <thead>
             <tr>
                 <th>Nombre</th>
@@ -30,8 +31,10 @@
                 <td th:text="${product.category}" data-label="Categoría"></td>
                 <td data-label="Imagen"><img th:src="@{${product.imageUrl}}" alt="${product.name}" style="max-width: 80px; height: auto;" /></td>
                 <td data-label="Acciones">
-                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">Editar</a> |
-                    <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar</a>
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn-action btn-edit">Editar</a>
+                    <form th:action="@{/admin/products/delete/{id}(id=${product.id})}" method="post" style="display: inline-block;">
+                        <button type="submit" class="btn-action btn-delete" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Eliminar</button>
+                    </form>
                 </td>
             </tr>
             </tbody>

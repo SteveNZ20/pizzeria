@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Administradores</title>
+
+    <link rel="stylesheet" th:href="@{/css/admin/index.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/header.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/fontawesome.css}"> </head>
+<body>
+
+<div th:replace="fragments/adminHeader :: adminHeader"></div>
+
+<main class="main-content">
+
+    <section class="list-container">
+        <h2>Lista de Administradores</h2>
+
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>User Type</th>
+                <th>Status</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="admin : ${admins}">
+                <td th:text="${admin.username}"></td>
+                <td th:text="${admin.email}"></td>
+                <td th:text="${admin.usertype}"></td>
+                <td th:text="${admin.status ? 'Activo' : 'Inactivo'}"></td>
+                <td th:text="${admin.nombre}"></td>
+                <td th:text="${admin.apellido}"></td>
+                <td th:text="${admin.dni}"></td>
+                <td th:text="${admin.telefono}"></td>
+                <td>
+                    <div th:if="${admin.username != #authentication.name}">
+                        <form th:action="@{/admin/enableUser}" method="post" style="display: inline-block;">
+                            <input type="hidden" name="userId" th:value="${admin.id}" />
+                            <button type="submit">Habilitar</button>
+                        </form>
+
+                        <form th:action="@{/admin/disableUser}" method="post" style="display: inline-block;">
+                            <input type="hidden" name="userId" th:value="${admin.id}" />
+                            <button type="submit">Deshabilitar</button>
+                        </form>
+                    </div>
+                    <div th:if="${admin.username == #authentication.name}">
+                        <p style="color: #777; font-style: italic;">(Sesión actual)</p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<div th:replace="fragments/adminFooter :: adminFooter"></div>
+
+<script th:src="@{/js/admin/script.js}"></script>
+
+</body>
+</html>

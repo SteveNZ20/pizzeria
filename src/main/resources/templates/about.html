@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce la historia, la pasión y los valores que nos inspiran en Diego's Pizza.">
+
+    <title>Nosotros - Diego's Pizza</title>
+
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/about.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="main-content">
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Nuestra Historia</h1>
+            <p class="hero-subtitle">Pasión, sabor y tradición en cada porción.</p>
+        </div>
+    </section>
+
+    <section class="about-story">
+        <div class="story-image-container">
+            <img th:src="@{/images/about/chef.avif}" alt="Chef preparando pizza" class="story-image">
+        </div>
+        <div class="story-content">
+            <h2 class="section-title">El Sueño de Diego</h2>
+            <p>Hace más de 20 años, Diego, un apasionado de la cocina, soñaba con crear la pizza perfecta. No una pizza cualquiera, sino una que combinara ingredientes frescos, técnicas artesanales y un amor incondicional por la gastronomía. Lo que empezó como un pequeño horno en su garaje se ha convertido en Diego's Pizza, un lugar donde cada pizza cuenta una historia.</p>
+            <p>Desde entonces, hemos mantenido nuestra promesa: **ofrecer la mejor pizza artesanal de la ciudad.** Nuestra masa, fermentada lentamente, y nuestros ingredientes de proveedores locales son la clave de un sabor inigualable que nos distingue.</p>
+        </div>
+    </section>
+
+    <section class="about-values">
+        <h2 class="section-title">Nuestros Valores</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-handshake value-icon"></i>
+                <h3 class="value-title">Calidad Artesanal</h3>
+                <p>Cada pizza es una obra de arte, hecha a mano con dedicación y cuidado en cada paso del proceso.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-leaf value-icon"></i>
+                <h3 class="value-title">Ingredientes Frescos</h3>
+                <p>Solo usamos productos de la más alta calidad, seleccionados cuidadosamente para garantizar un sabor excepcional.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users value-icon"></i>
+                <h3 class="value-title">Pasión por el Servicio</h3>
+                <p>Nuestra misión es hacer feliz a cada cliente, ofreciendo un servicio cálido y memorable en todo momento.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/js/header.js}" defer></script>
+<script th:src="@{/js/about.js}" defer></script>
+</body>
+</html>

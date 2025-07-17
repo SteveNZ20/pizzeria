@@ -1,63 +1,104 @@
 package com.steve.pizzeria.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 public class OrderDto {
 
     private Long id;
-    @JsonProperty("userId")
-    private int userId;
+    private double amount;
+    private String paymentMethod;
+    private String observations;
+    private String userId;
+    private String userName;
+    private String userAddress;
+    private String userPhone;
+    private Date fechaCreacion;
+    private String status;
 
-    @JsonProperty("productId")
-    private int productId;
+    // Constructor vacío
+    public OrderDto() {
+    }
 
-    @JsonProperty("productName")
-    private String productName;
-
-    private double price;
-    private int quantity;
-    private String image;
-
-    /**
-     * Constructor vacío para frameworks o inicialización manual.
-     */
-    public OrderDto() {}
-
-/**
- * Constructor con parámetros principales.
- *
- * @param id ID del pedido
- * @param userId ID del usuario que realizó el pedido
- * @param productId ID del producto pedido
- * @param productName nombre del producto pedido
- * @param price precio del producto
- * @param quantity cantidad del producto pedido
- * @param image URL de la imagen del producto
- */
-    public OrderDto(Long id, int userId, int productId, String productName, double price, int quantity, String image) {
+    // Constructor con todos los campos
+    public OrderDto(Long id, double amount, String paymentMethod, String observations, String userId, String userName, String userAddress, String userPhone, Date fechaCreacion, String status) {
         this.id = id;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.observations = observations;
         this.userId = userId;
-        this.productId = productId;
-        this.productName = productName;
-        this.price = price;
-        this.quantity = quantity;
-        this.image = image;
+        this.userName = userName;
+        this.userAddress = userAddress;
+        this.userPhone = userPhone;
+        this.fechaCreacion = fechaCreacion;
+        this.status = status;
     }
 
     // Getters y Setters
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-    public int getUser_id() {return userId;}
-    public void setUser_id(int user_id) {this.userId = user_id;}
-    public int getProduct_id() {return productId;}
-    public void setProduct_id(int product_id) {this.productId = product_id;}
-    public String getProduct_name() {return productName;}
-    public void setProduct_name(String product_name) {this.productName = product_name;}
-    public double getPrice() {return price;}
-    public void setPrice(double price) {this.price = price;}
-    public int getQuantity() {return quantity;}
-    public void setQuantity(int quantity) {this.quantity = quantity;}
-    public String getImage() {return image;}
-    public void setImage(String image) {this.image = image;}
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    public String getObservations() {
+        return observations;
+    }
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getUserAddress() {
+        return userAddress;
+    }
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+    public String getUserPhone() {
+        return userPhone;
+    }
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return fechaCreacion != null ? fechaCreacion.toInstant().atOffset(OffsetDateTime.now().getOffset()) : null;
+    }
 }
